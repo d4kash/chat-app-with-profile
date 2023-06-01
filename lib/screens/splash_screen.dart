@@ -25,19 +25,49 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: userSignedIn(),
-        builder: (context, AsyncSnapshot<Widget> snapshot) {
-          if (snapshot.hasData) {
-            return snapshot.data!;
-          }
-          return Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+      body: StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            snapshot.connectionState == ConnectionState.none) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        },
-      ),
+        } else {
+          if (snapshot.hasData) {
+            // print("sign in Handler data : ${snapshot.data}");
+            debugPrint("sent to Loding Page : ${ snapshot.data!}");
+            // UserModel userModel = UserModel.fromJson(snapshot.data!);
+            return HomeScreen(
+               snapshot.data!,
+            );
+            // return HomePage(
+            //   user: snapshot.data!,
+            // );
+          } else {
+            return  AuthScreen();
+          }
+        }
+      },
+    )
     );
   }
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: FutureBuilder(
+  //       future: userSignedIn(),
+  //       builder: (context, AsyncSnapshot<Widget> snapshot) {
+  //         if (snapshot.hasData) {
+  //           return snapshot.data!;
+  //         }
+  //         return Scaffold(
+  //           body: Center(
+  //             child: CircularProgressIndicator(),
+  //           ),
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
 }

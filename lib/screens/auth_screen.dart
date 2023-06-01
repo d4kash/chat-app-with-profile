@@ -1,5 +1,6 @@
 import 'package:chat_app/main.dart';
 import 'package:chat_app/screens/home_screen.dart';
+import 'package:chat_app/screens/insta_screens/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,13 +33,19 @@ class _AuthScreenState extends State<AuthScreen> {
       print("User Already Exists in Database");
     } else {
       try {
+        
         await firestore.collection('users').doc(userCredential.user!.uid).set({
           'email': userCredential.user!.email,
           'name': userCredential.user!.displayName,
           'image': userCredential.user!.photoURL,
           'uid': userCredential.user!.uid,
           'date': DateTime.now(),
+           "followers": [],
+            "followings": [],
         });
+       
+        
+           
       } on FirebaseException catch (e) {
         // TODO
         print(e.toString());
@@ -48,7 +55,7 @@ class _AuthScreenState extends State<AuthScreen> {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (context) => MyApp(),
+        builder: (context) => HomeSceen(),
       ),
       (route) => false,
     );
