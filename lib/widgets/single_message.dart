@@ -5,8 +5,8 @@ class SingleMessage extends StatelessWidget {
   final bool isMe;
 
   SingleMessage({
-    this.message,
-    this.isMe,
+    required this.message,
+    required this.isMe,
   });
 
   @override

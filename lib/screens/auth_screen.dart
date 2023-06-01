@@ -15,7 +15,7 @@ class _AuthScreenState extends State<AuthScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future signInFunction() async {
-    GoogleSignInAccount googleUser = await googleSignIn.signIn();
+    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
     if (googleUser == null) {
       return;
     }
@@ -26,18 +26,23 @@ class _AuthScreenState extends State<AuthScreen> {
         await FirebaseAuth.instance.signInWithCredential(credential);
 
     DocumentSnapshot userExist =
-        await firestore.collection('users').doc(userCredential.user.uid).get();
+        await firestore.collection('users').doc(userCredential.user!.uid).get();
 
     if (userExist.exists) {
       print("User Already Exists in Database");
     } else {
-      await firestore.collection('users').doc(userCredential.user.uid).set({
-        'email': userCredential.user.email,
-        'name': userCredential.user.displayName,
-        'image': userCredential.user.photoURL,
-        'uid': userCredential.user.uid,
-        'date': DateTime.now(),
-      });
+      try {
+        await firestore.collection('users').doc(userCredential.user!.uid).set({
+          'email': userCredential.user!.email,
+          'name': userCredential.user!.displayName,
+          'image': userCredential.user!.photoURL,
+          'uid': userCredential.user!.uid,
+          'date': DateTime.now(),
+        });
+      } on FirebaseException catch (e) {
+        // TODO
+        print(e.toString());
+      }
     }
 
     Navigator.pushAndRemoveUntil(

@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  String email;
-  String name;
-  String image;
-  Timestamp date;
-  String uid;
+  String? email;
+  String? name;
+  String? image;
+  Timestamp? date;
+  String? uid;
 
   UserModel({
     this.email,

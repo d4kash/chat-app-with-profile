@@ -12,10 +12,10 @@ class ChatScreen extends StatelessWidget {
   final String friendImage;
 
   ChatScreen({
-    this.currentUser,
-    this.friendId,
-    this.friendName,
-    this.friendImage,
+    required this.currentUser,
+    required this.friendId,
+    required this.friendName,
+    required this.friendImage,
   });
 
   @override
@@ -103,7 +103,7 @@ class ChatScreen extends StatelessWidget {
             ),
           ),
           MessageTextField(
-            currentUser.uid,
+            currentUser.uid!,
             friendId,
           ),
         ],
