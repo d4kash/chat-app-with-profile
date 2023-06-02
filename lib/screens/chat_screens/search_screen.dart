@@ -1,5 +1,5 @@
 import 'package:chat_app/models/user_model.dart';
-import 'package:chat_app/screens/chat_screen.dart';
+import 'package:chat_app/screens/chat_screens/chat_screen.dart';
 import 'package:chat_app/screens/insta_screens/model/profile_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/models/user_model.dart';
 import 'package:chat_app/screens/auth_screen.dart';
-import 'package:chat_app/screens/chat_screen.dart';
-import 'package:chat_app/screens/search_screen.dart';
+import 'package:chat_app/screens/chat_screens/chat_screen.dart';
+import 'package:chat_app/screens/chat_screens/search_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
