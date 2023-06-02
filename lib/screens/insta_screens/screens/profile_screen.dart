@@ -43,14 +43,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .collection('users')
           .doc(widget.uid)
           .get();
-      print(userSnap.data()!['followers'].length.toString());
+      print(userSnap.data().toString());
       // get post lENGTH
       var postSnap = await FirebaseFirestore.instance
           .collection('posts')
           .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
 
-      // postLen = postSnap.docs!=null?postSnap.docs.length:0;
+      postLen = postSnap.docs.length;
       var profileModel = ProfileModel.fromJson(userSnap.data()!);
       userData = userSnap.data()!;
       followers =profileModel.followers!.length;
@@ -126,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Container(
                           // padding: EdgeInsets.all(10).copyWith(top: 20),
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage(userData['photoURL']),
+                            backgroundImage: NetworkImage(userData['image']),
                             radius: 40,
                           ),
                         ),

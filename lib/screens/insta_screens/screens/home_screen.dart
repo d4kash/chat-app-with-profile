@@ -37,6 +37,7 @@ class _HomeSceenState extends State<HomeSceen> {
   }
 
   addData() async {
+   
     UserProvider userProvider = Get.put(UserProvider());
     await userProvider.refereshUser();
   }
@@ -60,7 +61,6 @@ class _HomeSceenState extends State<HomeSceen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       // appBar: AppBar(
       //   actions: [
       //     IconButton(
@@ -73,45 +73,51 @@ class _HomeSceenState extends State<HomeSceen> {
         controller: pageController,
         onPageChanged: onPageChanged,
         physics: const NeverScrollableScrollPhysics(),
-        children:  [
+        children: [
           const FeedScreen(),
           const SearchScreen(),
           const AddPost(),
           const Text('activity'),
-      
           ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
         ],
-        
       ),
       bottomNavigationBar: CupertinoTabBar(
-        
         backgroundColor: mobileBackgroundColor,
         items: [
           BottomNavigationBarItem(
-              icon: _page == 0 ?const  Icon(
-                CupertinoIcons.house_fill, color: blackColor,
-              )
-              :const Icon(
-                CupertinoIcons.house,color: secondaryColor,
-              ),
-              label: '',
-              backgroundColor: primaryColor),
-          BottomNavigationBarItem (
-              icon: _page == 1 ? const Icon(
-                CupertinoIcons.search, color: blackColor,
-              )
-              :const Icon(
-                Icons.search,color: secondaryColor,
-              ),
+              icon: _page == 0
+                  ? const Icon(
+                      CupertinoIcons.house_fill,
+                      color: blackColor,
+                    )
+                  : const Icon(
+                      CupertinoIcons.house,
+                      color: secondaryColor,
+                    ),
               label: '',
               backgroundColor: primaryColor),
           BottomNavigationBarItem(
-               icon: _page == 2 ? const Icon(
-                CupertinoIcons.add_circled_solid, color: blackColor,
-              )
-              :const Icon(
-                CupertinoIcons.add_circled,color: secondaryColor,
-              ),
+              icon: _page == 1
+                  ? const Icon(
+                      CupertinoIcons.search,
+                      color: blackColor,
+                    )
+                  : const Icon(
+                      Icons.search,
+                      color: secondaryColor,
+                    ),
+              label: '',
+              backgroundColor: primaryColor),
+          BottomNavigationBarItem(
+              icon: _page == 2
+                  ? const Icon(
+                      CupertinoIcons.add_circled_solid,
+                      color: blackColor,
+                    )
+                  : const Icon(
+                      CupertinoIcons.add_circled,
+                      color: secondaryColor,
+                    ),
               label: '',
               backgroundColor: primaryColor),
           BottomNavigationBarItem(

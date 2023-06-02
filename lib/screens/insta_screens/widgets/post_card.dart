@@ -8,6 +8,7 @@ import 'package:chat_app/screens/insta_screens/resources/firestore_method.dart';
 import 'package:chat_app/screens/insta_screens/screens/comment_screen.dart';
 import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';
 import 'package:chat_app/screens/insta_screens/widgets/like_animtion.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:zoom_pinch_overlay/zoom_pinch_overlay.dart';
@@ -58,8 +59,8 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    final model.User user = Provider.of<UserProvider>(context).getUser;
-  
+    // final model.User user = Provider.of<UserProvider>(context).getUser;
+    final model.User user = Get.put(UserProvider()).getUser;
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 1),
@@ -131,8 +132,8 @@ class _PostCardState extends State<PostCard> {
         ),
         GestureDetector(
           onDoubleTap: () async {
-            FireStoreMethods().likePost(widget.snap['postId'],
-                user.uid, widget.snap['likes']);
+            FireStoreMethods().likePost(
+                widget.snap['postId'], user.uid, widget.snap['likes']);
             setState(() {
               isAnimating = true;
             });
@@ -188,8 +189,8 @@ class _PostCardState extends State<PostCard> {
               smallLike: true,
               child: IconButton(
                   onPressed: () async {
-                    await FireStoreMethods().likePost(widget.snap['postId'],
-                       user.uid, widget.snap['likes']);
+                    await FireStoreMethods().likePost(
+                        widget.snap['postId'], user.uid, widget.snap['likes']);
                     setState(() {
                       isAnimating = true;
                     });

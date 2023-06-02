@@ -36,7 +36,8 @@ class _AuthScreenState extends State<AuthScreen> {
         
         await firestore.collection('users').doc(userCredential.user!.uid).set({
           'email': userCredential.user!.email,
-          'name': userCredential.user!.displayName,
+          "username":  userCredential.user!.email,
+          'fullName': userCredential.user!.displayName,
           'image': userCredential.user!.photoURL,
           'uid': userCredential.user!.uid,
           'date': DateTime.now(),

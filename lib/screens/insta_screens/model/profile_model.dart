@@ -10,40 +10,44 @@ String profileModelToJson(ProfileModel data) => json.encode(data.toJson());
 
 class ProfileModel {
     DateTime? date;
-    String? image;
     String? uid;
+    String? image;
     List<dynamic>? followers;
-    List<dynamic>? followings;
-    String? name;
+    List<String>? followings;
+    String? fullName;
     String? email;
+    String? username;
 
     ProfileModel({
         this.date,
-        this.image,
         this.uid,
+        this.image,
         this.followers,
         this.followings,
-        this.name,
+        this.fullName,
         this.email,
+        this.username,
     });
 
     factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
         date: json["date"].toDate(),
-        image: json["image"],
         uid: json["uid"],
+        image: json["image"],
         followers: json["followers"] == null ? [] : List<dynamic>.from(json["followers"]!.map((x) => x)),
-        followings: json["followings"] == null ? [] : List<dynamic>.from(json["followings"]!.map((x) => x)),
-        name: json["name"],
+        followings: json["followings"] == null ? [] : List<String>.from(json["followings"]!.map((x) => x)),
+        fullName: json["fullName"],
         email: json["email"],
+        username: json["username"],
     );
 
     Map<String, dynamic> toJson() => {
         "date": date,
-        "image": image,
         "uid": uid,
+        "image": image,
         "followers": followers == null ? [] : List<dynamic>.from(followers!.map((x) => x)),
         "followings": followings == null ? [] : List<dynamic>.from(followings!.map((x) => x)),
-        "name": name,
+        "fullName": fullName,
         "email": email,
+        "username": username,
     };
 }

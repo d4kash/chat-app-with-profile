@@ -7,6 +7,7 @@ import 'package:chat_app/screens/insta_screens/resources/firestore_method.dart';
 import 'package:chat_app/screens/insta_screens/utils/colors.dart';
 import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';
 import 'package:chat_app/screens/insta_screens/widgets/comment_card.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class CommentScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _CommentScreenState extends State<CommentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final User user = Get.put(UserProvider()).getUser;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(

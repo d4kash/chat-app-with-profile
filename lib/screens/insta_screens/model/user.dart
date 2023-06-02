@@ -5,7 +5,7 @@ class User {
   final String uid;
   final String fullName;
   final String username;
-  final String password;
+
   final List followers;
   final List followings;
   final String photoURL;
@@ -15,7 +15,7 @@ class User {
     required this.uid,
     required this.fullName,
     required this.username,
-    required this.password,
+ 
     required this.followers,
     required this.followings,
     required this.photoURL,
@@ -27,10 +27,10 @@ static User fromSnap(DocumentSnapshot snap) {
 
     return User(
       username: snapshot["username"],
-      password: snapshot["password"],
+      
       uid: snapshot["uid"],
       email: snapshot["email"],
-      photoURL: snapshot["photoURL"],
+      photoURL: snapshot["image"],
       fullName: snapshot["fullName"],
       followers: snapshot["followers"],
       followings: snapshot["followings"],
@@ -42,9 +42,9 @@ static User fromSnap(DocumentSnapshot snap) {
         'uid': uid,
         'fullName': fullName,
         'username': username,
-        'password': password,
+
         'followers': followers,
         'followings': followings,
-        'photoURL': photoURL,
+        'image': photoURL,
       };
 }

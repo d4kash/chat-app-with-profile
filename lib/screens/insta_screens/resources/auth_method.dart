@@ -44,7 +44,7 @@ class AuthMedthod {
             uid: credential.user!.uid,
             fullName: fullName,
             username: username,
-            password: password,
+    
             followers: [],
             followings: [],
             photoURL: photoURL);
