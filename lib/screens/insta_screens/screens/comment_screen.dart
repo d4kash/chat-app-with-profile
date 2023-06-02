@@ -8,7 +8,6 @@ import 'package:chat_app/screens/insta_screens/utils/colors.dart';
 import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';
 import 'package:chat_app/screens/insta_screens/widgets/comment_card.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 class CommentScreen extends StatefulWidget {
   final snap;
@@ -44,7 +43,7 @@ class _CommentScreenState extends State<CommentScreen> {
             .collection('posts')
             .doc(widget.snap['postId'])
             .collection('comments')
-            .orderBy('date',descending: true)
+            .orderBy('date', descending: true)
             .snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
@@ -56,7 +55,9 @@ class _CommentScreenState extends State<CommentScreen> {
 
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, index) => CommentsCard(snap: snapshot.data!.docs[index].data(),),
+            itemBuilder: (context, index) => CommentsCard(
+              snap: snapshot.data!.docs[index].data(),
+            ),
           );
         },
       ),

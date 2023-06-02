@@ -10,7 +10,7 @@ import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';
 import 'package:chat_app/screens/insta_screens/widgets/like_animtion.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
+
 import 'package:zoom_pinch_overlay/zoom_pinch_overlay.dart';
 
 class PostCard extends StatefulWidget {
@@ -23,7 +23,7 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   bool isAnimating = false;
-  int numberOfComments = 0;
+  RxInt numberOfComments = 0.obs;
 
   @override
   void initState() {
@@ -53,13 +53,13 @@ class _PostCardState extends State<PostCard> {
         .collection('comments')
         .get();
 
-    numberOfComments = snap.docs.length;
+    numberOfComments.value = snap.docs.length;
     // print(numberOfComments);
   }
 
   @override
   Widget build(BuildContext context) {
-    // final model.User user = Provider.of<UserProvider>(context).getUser;
+    // final model.User user = Get.Put(UserProvider()).getUser;
     final model.User user = Get.put(UserProvider()).getUser;
     return Container(
       color: Colors.white,
@@ -151,6 +151,20 @@ class _PostCardState extends State<PostCard> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.45,
                   child: Image(
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
                     image: NetworkImage(widget.snap['postURL']),
                     fit: BoxFit.cover,
                   ),
@@ -293,10 +307,11 @@ class _PostCardState extends State<PostCard> {
               },
               child: Container(
                   padding: EdgeInsets.symmetric(vertical: 5),
-                  child: Text(
-                    'View all ${numberOfComments} comments..',
-                    style: TextStyle(color: Colors.grey.shade700, fontSize: 15),
-                  )),
+                  child: Obx(() => Text(
+                        'View all $numberOfComments comments..',
+                        style: TextStyle(
+                            color: Colors.grey.shade700, fontSize: 15),
+                      ))),
             )
           ]),
         )

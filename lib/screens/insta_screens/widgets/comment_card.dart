@@ -6,8 +6,8 @@ import 'package:chat_app/screens/insta_screens/model/user.dart';
 import 'package:chat_app/screens/insta_screens/provider/user_provider.dart';
 import 'package:chat_app/screens/insta_screens/resources/firestore_method.dart';
 import 'package:chat_app/screens/insta_screens/utils/colors.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class CommentsCard extends StatefulWidget {
   final snap;
@@ -20,7 +20,7 @@ class CommentsCard extends StatefulWidget {
 class _CommentsCardState extends State<CommentsCard> {
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final User user = Get.put(UserProvider()).getUser;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       child: Row(
@@ -42,7 +42,7 @@ class _CommentsCardState extends State<CommentsCard> {
                     child: Text(
                       widget.snap['username'],
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                     ),
                   ),
                   Padding(
@@ -51,7 +51,7 @@ class _CommentsCardState extends State<CommentsCard> {
                       DateFormat.yMMMd().format(widget.snap['date'].toDate()),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                          fontSize: 10,
                           color: secondaryColor),
                     ),
                   ),
@@ -69,49 +69,46 @@ class _CommentsCardState extends State<CommentsCard> {
               ),
             ],
           )),
-
-
           Row(
             children: [
               Stack(
                 children: [
-
-                   IconButton(
-                   onPressed: () async {
-                     await FireStoreMethods().likeComment(widget.snap['postId'],
-                         widget.snap['commentId'], user.uid, widget.snap['likes']);
+                  IconButton(
+                    onPressed: () async {
+                      await FireStoreMethods().likeComment(
+                          widget.snap['postId'],
+                          widget.snap['commentId'],
+                          user.uid,
+                          widget.snap['likes']);
                     },
-                   icon: widget.snap['likes'].contains(user.uid)? const Icon(
-                   Icons.favorite,
-                   color: Colors.red,
-                   size: 20,
-                   )
-                  : const Icon(
-                   Icons.favorite_border,
-                    size: 20,
-                   ),
-            alignment: Alignment.topRight,
-          ),
-
-          Positioned(   
-            bottom: 6,
-            left: 26,  
-            child: Text("${widget.snap['likes'].length}" , style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+                    icon: widget.snap['likes'].contains(user.uid)
+                        ? const Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                            size: 20,
+                          )
+                        : const Icon(
+                            Icons.favorite_border,
+                            size: 20,
+                          ),
+                    alignment: Alignment.topRight,
+                  ),
+                  Positioned(
+                    bottom: 6,
+                    left: 26,
+                    child: Text(
+                      "${widget.snap['likes'].length}",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.end,
+                    ),
+                  )
+                ],
               ),
-              textAlign: TextAlign.end,
-              ),
-            )
-
-
-          ],
-          ),
-              
-              
             ],
           )
-         
         ],
       ),
     );

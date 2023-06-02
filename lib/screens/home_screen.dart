@@ -8,42 +8,43 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class HomeScreen extends StatefulWidget {
+//HomeScreen
+class ChatHomeScreen extends StatefulWidget {
   final user;
 
-  HomeScreen(
+  ChatHomeScreen(
     this.user,
   );
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _ChatHomeScreenState createState() => _ChatHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ChatHomeScreenState extends State<ChatHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Home',
+          'Chat with Friends',
         ),
         centerTitle: true,
         backgroundColor: Colors.teal,
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await GoogleSignIn().signOut();
-              await FirebaseAuth.instance.signOut();
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => AuthScreen()),
-                  (route) => false);
-            },
-            icon: Icon(
-              Icons.logout,
-            ),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () async {
+        //       await GoogleSignIn().signOut();
+        //       await FirebaseAuth.instance.signOut();
+        //       Navigator.pushAndRemoveUntil(
+        //           context,
+        //           MaterialPageRoute(builder: (context) => AuthScreen()),
+        //           (route) => false);
+        //     },
+        //     icon: Icon(
+        //       Icons.logout,
+        //     ),
+        //   ),
+        // ],
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance

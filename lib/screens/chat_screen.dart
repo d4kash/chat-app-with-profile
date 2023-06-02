@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app/models/user_model.dart';
+import 'package:chat_app/screens/insta_screens/model/profile_model.dart';
 import 'package:chat_app/widgets/message_textfield.dart';
 import 'package:chat_app/widgets/single_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
-  final UserModel currentUser;
+  final ProfileModel currentUser;
   final String friendId;
   final String friendName;
   final String friendImage;

@@ -1,6 +1,8 @@
 import 'package:chat_app/models/user_model.dart';
 import 'package:chat_app/screens/auth_screen.dart';
 import 'package:chat_app/screens/home_screen.dart';
+import 'package:chat_app/screens/insta_screens/route%20handling/auth_page.dart';
+import 'package:chat_app/screens/insta_screens/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class SplashScreen extends StatelessWidget {
           .doc(user.uid)
           .get();
       UserModel userModel = UserModel.fromJson(userData);
-      return HomeScreen(userModel);
+      return ChatHomeScreen(userModel);
     } else {
       return AuthScreen();
     }
@@ -25,7 +27,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<User?>(
+        body: StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (BuildContext context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
@@ -36,21 +38,18 @@ class SplashScreen extends StatelessWidget {
         } else {
           if (snapshot.hasData) {
             // print("sign in Handler data : ${snapshot.data}");
-            debugPrint("sent to Loding Page : ${ snapshot.data!}");
+            debugPrint("sent to Loding Page : ${snapshot.data!}");
             // UserModel userModel = UserModel.fromJson(snapshot.data!);
-            return HomeScreen(
-               snapshot.data!,
-            );
+            return HomeSceen();
             // return HomePage(
             //   user: snapshot.data!,
             // );
           } else {
-            return  AuthScreen();
+            return AuthPage();
           }
         }
       },
-    )
-    );
+    ));
   }
   // @override
   // Widget build(BuildContext context) {

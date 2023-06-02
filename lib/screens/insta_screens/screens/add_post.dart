@@ -7,7 +7,6 @@ import 'package:chat_app/screens/insta_screens/resources/firestore_method.dart';
 import 'package:chat_app/screens/insta_screens/utils/colors.dart';
 import 'package:chat_app/screens/insta_screens/utils/image_picker.dart';
 import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';
-import 'package:provider/provider.dart';
 
 class AddPost extends StatefulWidget {
   const AddPost({super.key});
@@ -44,7 +43,7 @@ class _AddPostState extends State<AddPost> {
                     _image = file;
                   });
                 },
-                child: const Text("take photo"),
+                child: const Text("Take Photo"),
               ),
               SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
@@ -55,7 +54,7 @@ class _AddPostState extends State<AddPost> {
                     _image = file;
                   });
                 },
-                child: const Text("select image from gallery"),
+                child: const Text("Gallery Photo"),
               ),
 
               //cancel
@@ -64,7 +63,7 @@ class _AddPostState extends State<AddPost> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text("cancel"),
+                child: const Text("Cancel"),
               )
             ],
           );
@@ -117,8 +116,8 @@ class _AddPostState extends State<AddPost> {
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
               leading: IconButton(
-              onPressed: () => clearImage(),
-              icon: const Icon(Icons.arrow_back)),
+                  onPressed: () => clearImage(),
+                  icon: const Icon(Icons.arrow_back)),
               title: const Text('post to'),
               actions: [
                 TextButton(
@@ -158,8 +157,7 @@ class _AddPostState extends State<AddPost> {
                       child: TextField(
                         decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: "enter your caption..."
-                            ),
+                            hintText: "enter your caption..."),
                         maxLines: 10,
                         controller: discriptionController,
                       ),

@@ -1,3 +1,4 @@
+import 'package:chat_app/GlobalVariables/Constants.dart';
 import 'package:chat_app/screens/insta_screens/model/profile_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:chat_app/screens/insta_screens/utils/colors.dart';
 import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';
 import 'package:chat_app/screens/insta_screens/widgets/profile_buttons.dart';
-import 'package:provider/provider.dart';
 
 import '../model/user.dart';
 import '../provider/user_provider.dart';
@@ -27,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int following = 0;
   bool isFollowing = false;
   bool isLoading = false;
-
+  var profileModel;
   @override
   void initState() {
     super.initState();
@@ -51,10 +51,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .get();
 
       postLen = postSnap.docs.length;
-      var profileModel = ProfileModel.fromJson(userSnap.data()!);
+      profileModel = ProfileModel.fromJson(userSnap.data()!);
       userData = userSnap.data()!;
-      followers =profileModel.followers!.length;
-      following =profileModel.followings!.length;
+      followers = profileModel.followers!.length;
+      following = profileModel.followings!.length;
       isFollowing = profileModel.followers!
           .contains(FirebaseAuth.instance.currentUser!.uid);
       setState(() {});
@@ -83,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
               )
             ],
           ),
@@ -103,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               backgroundColor: mobileBackgroundColor,
               centerTitle: false,
               title: Text(
-                userData['username'],
+                profileModel.username,
                 style: TextStyle(color: Colors.black),
               ),
               actions: [
@@ -126,20 +126,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Container(
                           // padding: EdgeInsets.all(10).copyWith(top: 20),
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage(userData['image']),
+                            backgroundImage: NetworkImage(profileModel.image),
                             radius: 40,
                           ),
                         ),
                         Expanded(
                           child: Column(
                             children: [
-                              Row(
-                                children: [
-                                  Padding(padding: EdgeInsets.only(left: 25)),
-                                  buildStatColumn('Posts', postLen),
-                                  buildStatColumn('followers', followers),
-                                  buildStatColumn('following', following),
-                                ],
+                              SizedBox(
+                                // width: Constant.width / 2.5,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Padding(padding: EdgeInsets.only(left: 25)),
+                                    buildStatColumn('Posts', postLen),
+                                    buildStatColumn('followers', followers),
+                                    buildStatColumn('following', following),
+                                  ],
+                                ),
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -180,7 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      userData['fullName'],
+                      profileModel.fullName,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -252,29 +256,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             .where('uid', isEqualTo: widget.uid)
                             .get(),
                         builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            const Center(
-                              child: CircularProgressIndicator(),
-                            );
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot.hasError) {
+                              return const Text('Error');
+                            } else if (snapshot.hasData) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 4.0, right: 4.0),
+                                child: GridView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        (snapshot.data! as dynamic).docs.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            crossAxisSpacing: 3,
+                                            mainAxisSpacing: 3),
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            border: Border.all(),
+                                            borderRadius:
+                                                BorderRadius.circular(0),
+                                          ),
+                                          child: Image(
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent?
+                                                        loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              }
+                                              return Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  value: loadingProgress
+                                                              .expectedTotalBytes !=
+                                                          null
+                                                      ? loadingProgress
+                                                              .cumulativeBytesLoaded /
+                                                          loadingProgress
+                                                              .expectedTotalBytes!
+                                                      : null,
+                                                ),
+                                              );
+                                            },
+                                            image: NetworkImage(
+                                                (snapshot.data! as dynamic)
+                                                    .docs[index]['postURL']),
+                                            fit: BoxFit.cover,
+                                          ));
+                                    }),
+                              );
+                            } else {
+                              return const Text('Empty data');
+                            }
+                          } else {
+                            return SizedBox(
+                                height: Constant.height / 2,
+                                width: Constant.width / 2,
+                                child: const Text("else"));
                           }
-                          return GridView.builder(
-                              shrinkWrap: true,
-                              itemCount:
-                                  (snapshot.data! as dynamic).docs.length,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 3,
-                                      mainAxisSpacing: 3),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    child: Image(
-                                  image: NetworkImage(
-                                      (snapshot.data! as dynamic).docs[index]
-                                          ['postURL']),
-                                  fit: BoxFit.cover,
-                                ));
-                              });
                         }),
                   )
                 ],

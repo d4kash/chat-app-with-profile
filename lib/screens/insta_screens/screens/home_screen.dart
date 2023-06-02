@@ -9,7 +9,6 @@ import 'package:chat_app/screens/insta_screens/screens/profile_screen.dart';
 import 'package:chat_app/screens/insta_screens/screens/search_screen.dart';
 import 'package:chat_app/screens/insta_screens/utils/colors.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 class HomeSceen extends StatefulWidget {
   const HomeSceen({super.key});
@@ -37,7 +36,6 @@ class _HomeSceenState extends State<HomeSceen> {
   }
 
   addData() async {
-   
     UserProvider userProvider = Get.put(UserProvider());
     await userProvider.refereshUser();
   }

@@ -1,3 +1,6 @@
+import 'package:chat_app/GlobalVariables/Constants.dart';
+import 'package:chat_app/screens/home_screen.dart';
+import 'package:chat_app/screens/insta_screens/model/profile_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +23,27 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
+  var profileModel;
+  getData() async {
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(Constant.uid)
+          .get();
+      print(userSnap.data().toString());
+      profileModel = ProfileModel.fromJson(userSnap.data()!);
+
+      setState(() {});
+    } catch (e) {}
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -27,13 +51,19 @@ class _FeedScreenState extends State<FeedScreen> {
           centerTitle: false,
           title: SvgPicture.asset(
             'assets/images/instagram.svg',
+            // ignore: deprecated_member_use
             color: blackColor,
             height: 50,
           ),
           actions: [
             IconButton(
                 onPressed: () {
-                  signUserOut();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChatHomeScreen(profileModel)));
+
+                  // signUserOut();
                 },
                 icon: Icon(
                   Icons.messenger_outline,
@@ -52,12 +82,21 @@ class _FeedScreenState extends State<FeedScreen> {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
+              } else if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text("Error"),
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) =>
+                        PostCard(snap: snapshot.data!.docs[index].data()),
+                  );
+                }
+              } else {
+                return Text('State: ${snapshot.connectionState}');
               }
-              return ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) =>
-                    PostCard(snap: snapshot.data!.docs[index].data()),
-              );
             }));
   }
 }

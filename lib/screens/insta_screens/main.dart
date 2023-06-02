@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:chat_app/screens/insta_screens/provider/user_provider.dart';
 import 'package:chat_app/screens/insta_screens/route%20handling/auth_page.dart';
 import 'package:chat_app/screens/insta_screens/utils/colors.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

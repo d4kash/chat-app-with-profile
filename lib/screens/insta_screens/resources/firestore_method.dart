@@ -4,7 +4,7 @@ import 'package:chat_app/screens/insta_screens/model/posts.dart';
 import 'package:chat_app/screens/insta_screens/model/user.dart';
 import 'package:chat_app/screens/insta_screens/provider/user_provider.dart';
 import 'package:chat_app/screens/insta_screens/resources/storage_methods.dart';
-import 'package:provider/provider.dart';
+
 import 'package:uuid/uuid.dart';
 
 class FireStoreMethods {
@@ -49,7 +49,6 @@ class FireStoreMethods {
 
   Future<void> likePost(String postId, String uid, List likes) async {
     try {
-
       if (likes.contains(uid)) {
         await firebaseFirestore.collection('posts').doc(postId).update({
           'likes': FieldValue.arrayRemove([uid])
