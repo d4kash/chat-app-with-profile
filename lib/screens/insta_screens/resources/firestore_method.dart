@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:chat_app/screens/insta_screens/model/posts.dart';
 import 'package:chat_app/screens/insta_screens/model/user.dart';
-import 'package:chat_app/screens/insta_screens/provider/user_provider.dart';
+import 'package:chat_app/screens/insta_screens/controller/user_provider.dart';
 import 'package:chat_app/screens/insta_screens/resources/storage_methods.dart';
 
 import 'package:uuid/uuid.dart';

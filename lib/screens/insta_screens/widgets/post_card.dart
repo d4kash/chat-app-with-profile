@@ -1,9 +1,10 @@
+import 'package:chat_app/screens/insta_screens/controller/user_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/screens/insta_screens/model/user.dart' as model;
-import 'package:chat_app/screens/insta_screens/provider/user_provider.dart';
+
 import 'package:chat_app/screens/insta_screens/resources/firestore_method.dart';
 import 'package:chat_app/screens/insta_screens/screens/comment_screen.dart';
 import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';
@@ -59,7 +60,7 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    // final model.User user = Get.Put(UserProvider()).getUser;
+    
     final model.User user = Get.put(UserProvider()).getUser;
     return Container(
       color: Colors.white,

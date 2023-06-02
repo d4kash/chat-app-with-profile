@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'screens/insta_screens/provider/bindings.dart';
+import 'screens/insta_screens/controller/bindings.dart';
 import 'screens/insta_screens/route handling/auth_page.dart';
 
 void main() async {

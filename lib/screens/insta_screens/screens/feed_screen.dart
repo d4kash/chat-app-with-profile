@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:chat_app/screens/insta_screens/utils/colors.dart';
 import 'package:chat_app/screens/insta_screens/widgets/post_card.dart';
+import 'package:chat_app/screens/insta_screens/controller/user_provider.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({super.key});
@@ -86,6 +87,10 @@ class _FeedScreenState extends State<FeedScreen> {
                 if (snapshot.hasError) {
                   return Center(
                     child: Text("Error"),
+                  );
+                } else if (!snapshot.hasData) {
+                  return Center(
+                    child: Text("No Uploaded Image"),
                   );
                 } else {
                   return ListView.builder(

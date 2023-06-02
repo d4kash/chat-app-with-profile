@@ -1,7 +1,7 @@
 import 'package:chat_app/screens/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:chat_app/screens/insta_screens/route%20handling/login_or_registed.dart';
+
 import 'package:chat_app/screens/insta_screens/screens/home_screen.dart';
 
 class AuthPage extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/screens/insta_screens/model/user.dart';
-import 'package:chat_app/screens/insta_screens/provider/user_provider.dart';
+import 'package:chat_app/screens/insta_screens/controller/user_provider.dart';
 import 'package:chat_app/screens/insta_screens/resources/firestore_method.dart';
 import 'package:chat_app/screens/insta_screens/utils/colors.dart';
 import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';

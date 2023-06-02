@@ -28,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
     await FirebaseFirestore.instance
         .collection('users')
         .where(
-          "name",
+          "fullName",
           isEqualTo: searchController.text,
         )
         .get()
@@ -107,7 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ),
                     title: Text(
-                      searchResult[index]['name'],
+                      searchResult[index]['fullName'],
                     ),
                     subtitle: Text(
                       searchResult[index]['email'],
@@ -123,7 +123,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               builder: (context) => ChatScreen(
                                 currentUser: widget.user,
                                 friendId: searchResult[index]['uid'],
-                                friendName: searchResult[index]['name'],
+                                friendName: searchResult[index]['fullName'],
                                 friendImage: searchResult[index]['image'],
                               ),
                             ),

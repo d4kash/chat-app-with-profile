@@ -23,6 +23,7 @@ class ChatHomeScreen extends StatefulWidget {
 class _ChatHomeScreenState extends State<ChatHomeScreen> {
   @override
   Widget build(BuildContext context) {
+    debugPrint(widget.user.uid);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -66,6 +67,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                   itemBuilder: (context, index) {
                     var friendId = snapshot.data.docs[index].id;
                     var lastMsg = snapshot.data.docs[index]['last_msg'];
+                 
                     return FutureBuilder(
                       future: FirebaseFirestore.instance
                           .collection('users')
@@ -88,7 +90,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                               ),
                             ),
                             title: Text(
-                              friend['name'],
+                              friend['fullName'],
                             ),
                             subtitle: Container(
                               child: Text(
@@ -106,7 +108,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                                   builder: (context) => ChatScreen(
                                     currentUser: widget.user,
                                     friendId: friend['uid'],
-                                    friendName: friend['name'],
+                                    friendName: friend['fullName'],
                                     friendImage: friend['image'],
                                   ),
                                 ),

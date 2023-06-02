@@ -10,7 +10,7 @@ import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';
 import 'package:chat_app/screens/insta_screens/widgets/profile_buttons.dart';
 
 import '../model/user.dart';
-import '../provider/user_provider.dart';
+import '../controller/user_provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;

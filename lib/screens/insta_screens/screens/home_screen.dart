@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/screens/insta_screens/model/user.dart' as model;
-import 'package:chat_app/screens/insta_screens/provider/user_provider.dart';
+import 'package:chat_app/screens/insta_screens/controller/user_provider.dart';
 import 'package:chat_app/screens/insta_screens/screens/add_post.dart';
 import 'package:chat_app/screens/insta_screens/screens/feed_screen.dart';
 import 'package:chat_app/screens/insta_screens/screens/profile_screen.dart';

@@ -10,19 +10,7 @@ import 'package:flutter/material.dart';
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
 
-  Future<Widget> userSignedIn() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      DocumentSnapshot userData = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-      UserModel userModel = UserModel.fromJson(userData);
-      return ChatHomeScreen(userModel);
-    } else {
-      return AuthScreen();
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +39,7 @@ class SplashScreen extends StatelessWidget {
                   //   user: snapshot.data!,
                   // );
                 } else {
-                  return AuthPage();
+                  return AuthScreen();
                 }
               }
             } else {
