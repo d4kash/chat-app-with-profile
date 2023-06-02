@@ -27,29 +27,38 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         body: StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting ||
-            snapshot.connectionState == ConnectionState.none) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          if (snapshot.hasData) {
-            // print("sign in Handler data : ${snapshot.data}");
-            debugPrint("sent to Loding Page : ${snapshot.data!}");
-            // UserModel userModel = UserModel.fromJson(snapshot.data!);
-            return HomeSceen();
-            // return HomePage(
-            //   user: snapshot.data!,
-            // );
-          } else {
-            return AuthPage();
-          }
-        }
-      },
-    ));
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (BuildContext context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting ||
+                snapshot.connectionState == ConnectionState.none) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text("Error"),
+                );
+              } else {
+                if (snapshot.hasData) {
+                  // print("sign in Handler data : ${snapshot.data}");
+                  // debugPrint("sent to Loding Page : ${snapshot.data!}");
+                  // UserModel userModel = UserModel.fromJson(snapshot.data!);
+                  return HomeSceen();
+                  // return HomePage(
+                  //   user: snapshot.data!,
+                  // );
+                } else {
+                  return AuthPage();
+                }
+              }
+            } else {
+              return Text('State: ${snapshot.connectionState}');
+            }
+          },
+        ));
   }
   // @override
   // Widget build(BuildContext context) {

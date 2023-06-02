@@ -46,65 +46,86 @@ class _SearchScreenState extends State<SearchScreen> {
                     )
                     .get(),
                 builder: (context, snapshot) {
-                  
-                  if (!snapshot.hasData) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  }
-                  return ListView.builder(
-                    itemCount: (snapshot.data! as dynamic).docs.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ProfileScreen(
-                                uid: (snapshot.data! as dynamic).docs[index]
-                                    ['uid']),
-                          ));
-                        },
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              (snapshot.data! as dynamic).docs[index]
-                                  ['photoURL'],
-                            ),
-                            radius: 16,
-                          ),
-                          title: Text(
-                            (snapshot.data! as dynamic).docs[index]['username'],
-                          ),
-                        ),
+                  } else if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text("Error"),
                       );
-                    },
-                  );
+                    } else {
+                      return ListView.builder(
+                        itemCount: (snapshot.data! as dynamic).docs.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ProfileScreen(
+                                    uid: (snapshot.data! as dynamic).docs[index]
+                                        ['uid']),
+                              ));
+                            },
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  (snapshot.data! as dynamic).docs[index]
+                                      ['photoURL'],
+                                ),
+                                radius: 16,
+                              ),
+                              title: Text(
+                                (snapshot.data! as dynamic).docs[index]
+                                    ['username'],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  } else {
+                    return Text('State: ${snapshot.connectionState}');
+                  }
                 },
               )
             : FutureBuilder(
                 future: FirebaseFirestore.instance.collection('posts').get(),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    const Center(
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
+                  } else if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text("Error"),
+                      );
+                    } else {
+                      print((snapshot.data! as dynamic).docs.length);
+                      return MasonryGridView.builder(
+                          crossAxisSpacing: 4,
+                          mainAxisSpacing: 4,
+                          gridDelegate:
+                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2),
+                          itemCount: (snapshot.data! as dynamic).docs.length,
+                          itemBuilder: (context, index) {
+                            return ClipRRect(
+                              child: Image.network((snapshot.data! as dynamic)
+                                  .docs[index]['postURL']),
+                            );
+                          });
+                    }
+                  } else {
+                    return Text('State: ${snapshot.connectionState}');
                   }
-
-
-                  return MasonryGridView.builder(
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 4,
-                      gridDelegate:
-                          SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2),
-                      itemCount: (snapshot.data! as dynamic).docs.length,
-                      itemBuilder: (context, index) {
-                        return ClipRRect(
-                          child: Image.network((snapshot.data! as dynamic)
-                              .docs[index]['postURL']),
-                        );
-                      });
-                }
-                )
-                );
+                }));
   }
 }
+/*
+
+ 
+
+
+*/
