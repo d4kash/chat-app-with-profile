@@ -1,5 +1,6 @@
 import 'package:chat_app/GlobalVariables/Constants.dart';
 import 'package:chat_app/screens/insta_screens/model/profile_model.dart';
+import 'package:chat_app/screens/splash_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:chat_app/screens/insta_screens/utils/colors.dart';
 import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';
 import 'package:chat_app/screens/insta_screens/widgets/profile_buttons.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../model/user.dart';
 import '../controller/user_provider.dart';
@@ -108,11 +110,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               actions: [
                 IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.messenger_outline,
-                      color: blackColor,
-                    ))
+                  onPressed: () async {
+                    await GoogleSignIn().signOut();
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => SplashScreen()),
+                        (route) => false);
+                  },
+                  icon: Icon(
+                    Icons.logout,
+                    color: Colors.black,
+                  ),
+                ),
               ],
             ),
             body: SafeArea(
@@ -194,7 +204,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 20).copyWith(top: 10),
                     alignment: Alignment.bottomLeft,
-                    child: Text('bio goes here'),
+                    child: Text(
+                      profileModel.bio,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
 
                   new Divider(

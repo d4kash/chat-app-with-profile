@@ -31,21 +31,6 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
         ),
         centerTitle: true,
         backgroundColor: Colors.teal,
-        // actions: [
-        //   IconButton(
-        //     onPressed: () async {
-        //       await GoogleSignIn().signOut();
-        //       await FirebaseAuth.instance.signOut();
-        //       Navigator.pushAndRemoveUntil(
-        //           context,
-        //           MaterialPageRoute(builder: (context) => AuthScreen()),
-        //           (route) => false);
-        //     },
-        //     icon: Icon(
-        //       Icons.logout,
-        //     ),
-        //   ),
-        // ],
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
@@ -67,7 +52,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                   itemBuilder: (context, index) {
                     var friendId = snapshot.data.docs[index].id;
                     var lastMsg = snapshot.data.docs[index]['last_msg'];
-                 
+
                     return FutureBuilder(
                       future: FirebaseFirestore.instance
                           .collection('users')

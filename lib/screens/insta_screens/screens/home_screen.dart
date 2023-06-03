@@ -75,7 +75,6 @@ class _HomeSceenState extends State<HomeSceen> {
           const FeedScreen(),
           const SearchScreen(),
           const AddPost(),
-          const Text('activity'),
           ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
         ],
       ),
@@ -120,15 +119,8 @@ class _HomeSceenState extends State<HomeSceen> {
               backgroundColor: primaryColor),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.favorite,
-                color: _page == 3 ? blackColor : secondaryColor,
-              ),
-              label: '',
-              backgroundColor: primaryColor),
-          BottomNavigationBarItem(
-              icon: Icon(
                 Icons.person,
-                color: _page == 4 ? blackColor : secondaryColor,
+                color: _page == 3 ? blackColor : secondaryColor,
               ),
               label: '',
               backgroundColor: primaryColor)
