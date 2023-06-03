@@ -41,13 +41,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final User user = Get.put(UserProvider()).getUser;
     final EditProfileController profileController =
         Get.put(EditProfileController());
-    Uint8List? _image;
-    Future updateProfile() async {
-      profileController.postImage(
-        user.username,
-        user.uid,
-        _image,
-      );
+    Uint8List? _image = null;
+    final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    Future updateProfile(Uint8List? selectedImage, String name, String username,
+        String bio) async {
+      if (_image != null) {
+        profileController.postImage(
+          user.username,
+          user.uid,
+          _image,
+        );
+      }
+
+      await firebaseFirestore
+          .collection('users')
+          .doc('${Constant.uid}')
+          .update({"fullName": name, "bio": bio, "username": username});
     }
 
     return Scaffold(
@@ -115,7 +124,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
                     onPressed: () {
-                      updateProfile();
+                      updateProfile(
+                        _image,
+                        nameController.text.isEmpty
+                            ? user.fullName
+                            : nameController.text,
+                        usernameController.text.isEmpty
+                            ? user.username
+                            : usernameController.text,
+                        bioController.text.isEmpty
+                            ? user.bio
+                            : bioController.text,
+                      );
                     },
                     child: Text("Update")),
               ),
