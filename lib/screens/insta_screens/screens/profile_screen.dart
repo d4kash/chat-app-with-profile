@@ -1,5 +1,6 @@
 import 'package:chat_app/GlobalVariables/Constants.dart';
 import 'package:chat_app/screens/insta_screens/model/profile_model.dart';
+import 'package:chat_app/screens/insta_screens/screens/edit_profile.dart';
 import 'package:chat_app/screens/splash_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:chat_app/screens/insta_screens/utils/colors.dart';
 import 'package:chat_app/screens/insta_screens/utils/snackbar.dart';
 import 'package:chat_app/screens/insta_screens/widgets/profile_buttons.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../model/user.dart';
@@ -166,6 +168,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             backgroundColor: Colors.transparent,
                                             borderColor: Colors.black,
                                             text: 'Edit Profile',
+                                            function: () {
+                                              Get.to(() => EditProfileScreen(
+                                                    snap: profileModel,
+                                                  ));
+                                            },
                                             textColor: Colors.black)
                                         : isFollowing
                                             ? FollowButton(

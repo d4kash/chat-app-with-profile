@@ -77,7 +77,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ),
             Text(
-              "Flutter Chat App",
+              "Byte Chat",
               style: TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
