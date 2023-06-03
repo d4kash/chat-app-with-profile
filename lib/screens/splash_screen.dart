@@ -6,6 +6,7 @@ import 'package:chat_app/screens/insta_screens/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
@@ -25,6 +26,7 @@ class SplashScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (snapshot.connectionState == ConnectionState.active) {
+               FlutterNativeSplash.remove();
               if (snapshot.hasError) {
                 return Center(
                   child: Text("Error"),
