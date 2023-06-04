@@ -50,11 +50,9 @@ class _FeedScreenState extends State<FeedScreen> {
         appBar: AppBar(
           backgroundColor: mobileBackgroundColor,
           centerTitle: false,
-          title: SvgPicture.asset(
-            'assets/images/instagram.svg',
-            // ignore: deprecated_member_use
-            color: blackColor,
-            height: 50,
+          title: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Bytes",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,letterSpacing: 1),),
           ),
           actions: [
             IconButton(

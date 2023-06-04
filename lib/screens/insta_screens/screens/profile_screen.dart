@@ -245,31 +245,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //posts grid
 
                   Expanded(
-                    //  child: FutureBuilder(
-                    //                future: FirebaseFirestore.instance.collection('posts').get(),
-                    //                builder: (context, snapshot) {
-                    //                  if (!snapshot.hasData) {
-                    //                    const Center(
-                    //                      child: CircularProgressIndicator(),
-                    //                    );
-                    //                  }
-
-                    //                  return MasonryGridView.builder(
-                    //                      crossAxisSpacing: 4,
-                    //                      mainAxisSpacing: 4,
-                    //                      gridDelegate:
-                    //   const  SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                    //         crossAxisCount: 2),
-                    //                      itemCount: (snapshot.data! as dynamic).docs.length,
-                    //                      itemBuilder: (context, index) {
-                    //   return ClipRRect(
-                    //     child: Image.network((snapshot.data! as dynamic)
-                    //         .docs[index]['postURL']),
-                    //   );
-                    //                      });
-                    //                }
-                    //                ),
-
+                 
                     child: FutureBuilder(
                         future: FirebaseFirestore.instance
                             .collection('posts')
