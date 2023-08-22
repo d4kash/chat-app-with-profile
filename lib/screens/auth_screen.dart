@@ -1,4 +1,4 @@
-import 'package:chat_app/main.dart';
+import 'package:chat_app/video_screen/main.dart';
 import 'package:chat_app/screens/home_screen.dart';
 import 'package:chat_app/screens/insta_screens/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

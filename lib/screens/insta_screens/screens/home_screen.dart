@@ -1,3 +1,5 @@
+import 'package:chat_app/video_screen/views/screens/add_video_screen.dart';
+import 'package:chat_app/video_screen/views/screens/video_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,6 +77,8 @@ class _HomeSceenState extends State<HomeSceen> {
           const FeedScreen(),
           const SearchScreen(),
           const AddPost(),
+          const AddVideoScreen(),
+           VideoScreen(),
           ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
         ],
       ),
@@ -119,8 +123,22 @@ class _HomeSceenState extends State<HomeSceen> {
               backgroundColor: primaryColor),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.person,
+                Icons.video_camera_back,
                 color: _page == 3 ? blackColor : secondaryColor,
+              ),
+              label: '',
+              backgroundColor: primaryColor),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.feed_rounded,
+                color: _page == 4 ? blackColor : secondaryColor,
+              ),
+              label: '',
+              backgroundColor: primaryColor),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person,
+                color: _page == 5 ? blackColor : secondaryColor,
               ),
               label: '',
               backgroundColor: primaryColor)

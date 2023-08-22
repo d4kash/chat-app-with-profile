@@ -1,4 +1,5 @@
 import 'package:chat_app/firebase_options.dart';
+import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/screens/splash_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';

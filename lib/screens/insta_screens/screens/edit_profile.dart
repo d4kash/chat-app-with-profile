@@ -1,3 +1,4 @@
+import 'package:chat_app/GlobalVariables/Constants.dart';
 import 'package:chat_app/screens/insta_screens/controller/profile_edit_controller.dart';
 import 'package:chat_app/screens/insta_screens/utils/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'package:chat_app/GlobalVariables/Constants.dart';
+
 import 'package:chat_app/screens/insta_screens/controller/user_provider.dart';
 import 'package:chat_app/screens/insta_screens/model/profile_model.dart';
 import 'package:chat_app/screens/insta_screens/model/user.dart';

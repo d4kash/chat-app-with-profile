@@ -3,6 +3,7 @@ import 'package:chat_app/screens/auth_screen.dart';
 import 'package:chat_app/screens/home_screen.dart';
 import 'package:chat_app/screens/insta_screens/route%20handling/auth_page.dart';
 import 'package:chat_app/screens/insta_screens/screens/home_screen.dart';
+import 'package:chat_app/video_screen/views/screens/auth/login_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ class SplashScreen extends StatelessWidget {
                   //   user: snapshot.data!,
                   // );
                 } else {
+                  // return LoginScreen();
                   return AuthScreen();
                 }
               }
