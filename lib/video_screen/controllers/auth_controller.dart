@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:chat_app/group_chat/pages/auth/login_page.dart';
+import 'package:chat_app/screens/auth_screen.dart';
 import 'package:chat_app/screens/insta_screens/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -27,7 +29,9 @@ class AuthController extends GetxController {
 
   _setInitialScreen(User? user) {
     if (user == null) {
-      Get.offAll(() => LoginScreen());
+      Get.offAll(() => AuthScreen());
+      // Get.offAll(() => LoginPage());
+      // Get.offAll(() => LoginScreen());
     } else {
       Get.offAll(() => HomeSceen());
     }

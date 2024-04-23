@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:chat_app/video_screen/constants.dart';
 import 'package:chat_app/video_screen/models/user.dart';
 
-class SearchController extends GetxController {
+class SearchConrtrollerGroup extends GetxController {
   final Rx<List<User>> _searchedUsers = Rx<List<User>>([]);
 
   List<User> get searchedUsers => _searchedUsers.value;

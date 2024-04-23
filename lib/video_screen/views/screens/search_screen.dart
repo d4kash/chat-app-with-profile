@@ -7,8 +7,8 @@ import 'package:chat_app/video_screen/views/screens/profile_screen.dart';
 class SearchScreen extends StatelessWidget {
   SearchScreen({Key? key}) : super(key: key);
 
-  final SearchController searchController = Get.put(SearchController());
-
+  final SearchConrtrollerGroup searchController = Get.put(SearchConrtrollerGroup());
+  
   @override
   Widget build(BuildContext context) {
     return Obx(() {
